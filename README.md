@@ -1,52 +1,253 @@
-# TS10 – NHÓM MỘT NHÀ – PHP + MYSQL
+# HỆ THỐNG QUẢN LÝ TUYỂN SINH LỚP 10
 
-## 1. Chạy bằng XAMPP (Windows)
-1. Giải nén thư mục `TS10_PHP_NhomMotNha` vào `C:\xampp\htdocs\`.
-2. Mở XAMPP, Start **Apache** và **MySQL**.
-3. Mở `http://localhost/phpmyadmin`, tab **Import**, chọn `sql/database.sql`.
-4. Bản này đã có sẵn `config.php` dùng cho XAMPP (MySQL root, không mật khẩu, database tuyensinh10). Nếu máy dùng cấu hình khác, sửa `config.php` cho phù hợp. Khi cập nhật vào dự án đang chạy, GIỮ file `config.php` cũ của bạn nếu đã hoạt động.
-5. Mở CMD, chạy (ví dụ):
-   `C:\xampp\php\php.exe C:\xampp\htdocs\TS10_PHP_NhomMotNha\tools\create_user.php so_admin "Admin@123456" "Cán bộ Sở" SO`
-6. Vào `http://localhost/TS10_PHP_NhomMotNha/login.php` và đăng nhập bằng tài khoản bạn vừa tạo.
+### Đề tài: Xây dựng hệ thống quản lý tuyển sinh lớp 10 THPT tại TP. Hồ Chí Minh
 
-Không có đăng nhập bằng mật khẩu bất kỳ, không có tài khoản hardcode. Password hash PHP + session + chống CSRF; queries PDO prepared statements.
+**Nhóm thực hiện:** NHÓM MỘT NHÀ
 
-## 2. Chia việc – mỗi người chỉnh file riêng
-| Thành viên | Trang | Chức năng |
+---
+
+## 1. Giới thiệu dự án
+
+Hệ thống Quản lý Tuyển sinh Lớp 10 là ứng dụng web được xây dựng nhằm hỗ trợ quản lý và tổ chức quy trình tuyển sinh vào lớp 10 tại các trường THPT trên địa bàn TP. Hồ Chí Minh.
+
+Hệ thống hướng đến việc số hóa các nghiệp vụ tuyển sinh, từ quản lý hồ sơ thí sinh, đăng ký nguyện vọng, phân bổ chỉ tiêu, tổ chức kỳ thi, quản lý điểm thi đến xét tuyển và công bố kết quả.
+
+Thông qua hệ thống, các đơn vị quản lý giáo dục, nhà trường và các đối tượng tham gia tuyển sinh có thể thực hiện nghiệp vụ theo vai trò được phân quyền, góp phần nâng cao tính chính xác, minh bạch và hiệu quả trong quá trình tuyển sinh.
+
+## 2. Mục tiêu dự án
+
+- Xây dựng hệ thống quản lý tuyển sinh lớp 10 trên nền tảng web.
+- Hỗ trợ quản lý thông tin thí sinh, hồ sơ dự thi và nguyện vọng đăng ký.
+- Quản lý chỉ tiêu tuyển sinh của các trường THPT.
+- Hỗ trợ phân bổ thí sinh vào địa điểm và phòng thi.
+- Quản lý công tác coi thi, chấm thi và cập nhật điểm thi.
+- Hỗ trợ xử lý phúc khảo và xét tuyển theo nguyện vọng.
+- Quản lý kết quả trúng tuyển và xác nhận nhập học.
+- Phân quyền người dùng theo chức năng và trách nhiệm nghiệp vụ.
+
+## 3. Công nghệ sử dụng
+
+| Thành phần | Công nghệ |
+|---|---|
+| Frontend | HTML5, CSS3, JavaScript |
+| Backend | PHP |
+| Cơ sở dữ liệu | MySQL |
+| Môi trường phát triển | XAMPP |
+| Công cụ lập trình | Visual Studio Code |
+| Quản lý mã nguồn | Git, GitHub |
+| Quản lý cơ sở dữ liệu | phpMyAdmin |
+
+## 4. Các chức năng của hệ thống
+
+Hệ thống được phân tích và thiết kế theo các nhóm nghiệp vụ chính:
+
+### 4.1. Quản lý tuyển sinh
+
+- Quản lý hồ sơ dự thi của thí sinh.
+- Quản lý chỉ tiêu tuyển sinh tại các trường THPT.
+- Đăng ký và xác nhận nguyện vọng.
+- Quản lý thông tin trường THCS và THPT.
+
+### 4.2. Quản lý tổ chức kỳ thi
+
+- Quản lý kỳ thi và địa điểm thi.
+- Phân bổ thí sinh vào phòng thi.
+- Cấp số báo danh cho thí sinh.
+- Phân công nhân sự coi thi.
+- Quản lý hội đồng ra đề và hội đồng chấm thi.
+
+### 4.3. Quản lý chấm thi và phúc khảo
+
+- Quản lý mã phách và mã bì bài thi.
+- Phân công cán bộ chấm thi.
+- Cập nhật và kiểm tra điểm thi.
+- Quản lý kết quả phúc khảo.
+- Theo dõi lịch sử điều chỉnh điểm.
+
+### 4.4. Xét tuyển và nhập học
+
+- Tổng hợp dữ liệu phục vụ xét tuyển.
+- Xử lý kết quả xét tuyển theo thứ tự nguyện vọng.
+- Phê duyệt kết quả tuyển sinh.
+- Quản lý danh sách thí sinh trúng tuyển.
+- Xác nhận nhập học tại trường THPT.
+
+### 4.5. Quản trị hệ thống
+
+- Đăng nhập và đăng xuất.
+- Quản lý tài khoản người dùng.
+- Phân quyền truy cập theo vai trò.
+- Quản lý dữ liệu phục vụ tuyển sinh.
+- Ghi nhận nhật ký hoạt động của hệ thống.
+
+## 5. Các chức năng đang phát triển
+
+Trong giai đoạn triển khai đầu tiên, nhóm tập trung xây dựng và tích hợp năm chức năng nghiệp vụ:
+
+| Thành viên | Chức năng phụ trách | File PHP |
 |---|---|---|
-| Đoàn Quốc Thái | `thai.php` | Phân bổ và duyệt chỉ tiêu (QT05) |
-| Nguyễn Minh Tân | `tan.php` | Phân bổ phòng thi và SBD (QT06) |
-| Nguyễn Minh Nghĩa | `nghia.php` | Phân công hội đồng chấm thi |
-| Ngô Hữu Lộc | `loc.php` | Nhập điểm theo mã phách (QT07–08) |
-| Trần Huỳnh Minh Nhật | `nhat.php` | Phê duyệt kết quả xét tuyển (QT10) |
+| Đoàn Quốc Thái | Phân bổ và phê duyệt chỉ tiêu tuyển sinh | `thai.php` |
+| Nguyễn Minh Tân | Phân bổ thí sinh vào phòng thi và cấp số báo danh | `tan.php` |
+| Nguyễn Minh Nghĩa | Phân công Hội đồng chấm thi | `nghia.php` |
+| Ngô Hữu Lộc | Cập nhật điểm thi theo mã phách | `loc.php` |
+| Trần Huỳnh Minh Nhật | Phê duyệt kết quả xét tuyển | `nhat.php` |
 
-**Không tự ý thay** `includes/bootstrap.php`, `includes/layout.php`, `assets/style.css`, `sql/database.sql` khi đang làm riêng; đề xuất thay đổi thì thống nhất trước.
+Mỗi thành viên phát triển chức năng trên một nhánh Git riêng trước khi tích hợp vào nhánh chính.
 
-## 3. Nhập dữ liệu
-Trang `du_lieu.php` dành cho người có vai trò `SO` để nhập danh mục dữ liệu trong giai đoạn demo. Không tự chèn dữ liệu mẫu. Các bản ghi có khóa ngoại cần nhập theo thứ tự.
+## 6. Cấu trúc thư mục dự án
 
-## 4. Giới hạn phải làm tiếp trước khi bảo vệ
-- Đây là **bộ khung PHP/MySQL chạy được**, không phải triển khai hoàn chỉnh toàn bộ đặc tả hay toàn bộ 40 bảng báo cáo. Schema ở đây là tập con phục vụ đúng 5 màn hình code đầu tiên.
-- QT06: danh sách được sắp xếp họ tên tiếng Việt (nếu PHP có Intl thì dùng Collator), giới hạn 24, không trùng thí sinh/SBD, xác nhận sau khi xếp. Quy tắc phân bổ địa điểm theo trường THCS gần nhau chưa có nguồn địa bàn để tự động kiểm tra.
-- QT08: cột `da_thong_nhat_diem=1` là kết quả của quy trình **hai cán bộ chấm độc lập + đối chiếu**. Bộ khung chưa có màn hình cho hai cán bộ nhập hai lượt và đối chiếu, do đó **không được tự đánh dấu 1 khi chưa có bằng chứng**. Chỉ màn thư ký được nhập điểm một lần và Sở chốt.
-- QT07: phân quyền hạn chế trang nhạy cảm, nhưng chưa triển khai mã hóa ánh xạ mã phách–SBD ở mức database. **Không đưa dữ liệu thật lên bản demo này** cho đến khi hoàn thành bảo mật theo QT07.
-- QT10: màn Nhật **chỉ phê duyệt** một kết quả dự kiến được nhập từ nguồn có kiểm tra; thuật toán tạo kết quả NV1→NV3, xếp hạng, xử lý đồng điểm/ưu tiên và đối soát đầy đủ môn thi **chưa có**. Cần code thêm theo đặc tả trước khi tuyên bố kết quả chính thức.
-- Các nghiệp vụ phúc khảo, ghép phách, tạo kết quả xét tuyển tự động, xác thực vai trò chi tiết trong RBAC đầy đủ... chưa nằm trong 5 chức năng giai đoạn đầu.
-- Không sử dụng kết quả của bản demo cho tuyển sinh thực tế.
+```text
+TS10_PHP_NhomMotNha/
+│
+├── assets/
+│   └── style.css
+│
+├── includes/
+│   ├── bootstrap.php
+│   ├── layout.php
+│   └── import_csv.php
+│
+├── sql/
+│   └── database.sql
+│
+├── mau_csv/
+│   ├── thai.csv
+│   ├── tan.csv
+│   ├── nghia.csv
+│   ├── loc.csv
+│   └── nhat.csv
+│
+├── tools/
+│   └── create_user.php
+│
+├── team/
+│
+├── config.example.php
+├── login.php
+├── logout.php
+├── index.php
+├── du_lieu.php
+├── thai.php
+├── tan.php
+├── nghia.php
+├── loc.php
+├── nhat.php
+└── README.md
+```
 
+## 7. Hướng dẫn cài đặt và chạy dự án
 
-## Nhập file ngay trong từng giao diện (bản cập nhật)
-- **Thái / thai.php:** nhập CSV chỉ tiêu trạng thái DỰ KIẾN, duyệt riêng trên màn hình.
-- **Tân / tan.php:** nhập CSV phân bổ thí sinh hợp lệ (cần kỳ thi, phòng thi, thí sinh đã có trong CSDL). Mỗi file dùng mã SBD duy nhất.
-- **Nghĩa / nghia.php:** nhập CSV phân công hai cán bộ khác nhau theo túi bài.
-- **Lộc / loc.php:** thư ký nhập CSV điểm theo mã phách; chỉ cho phép những bài đã được hai cán bộ thống nhất, không tự bật `da_thong_nhat_diem`.
-- **Nhật / nhat.php:** nhập CSV danh sách kết quả xét tuyển DỰ KIẾN được lập và kiểm tra trước; phê duyệt riêng theo nghiệp vụ. File không thay thế thuật toán xét tuyển NV1→NV3.
+### Bước 1: Tải mã nguồn
 
-### Cách thực hiện
-1. Vào giao diện của thành viên cần nhập; nhấn **Tải CSV mẫu cho chức năng này**.
-2. Mở CSV bằng Excel, điền từng hàng bên dưới tiêu đề, giữ nguyên tên và thứ tự cột.
-3. Trong Excel, **Save As → CSV UTF-8 (Comma delimited) (*.csv)**.
-4. Ngay trên trang PHP đó, nhấn **Chọn file** → **Kiểm tra và nhập MySQL**.
-5. Nếu một dòng bị lỗi, toàn bộ file không được lưu; thông báo nêu số dòng sai. Không import trực tiếp SQL hoặc Excel .xlsx.
+```bash
+git clone https://github.com/MinhNhat1608/TuyenSinhLop10.git
+```
 
-**Dữ liệu nền** (kỳ thi, trường, hệ xét tuyển, thí sinh, phòng thi, nhân sự, túi bài, nguyện vọng) vẫn phải tồn tại trước khi nhập các chức năng tương ứng. `du_lieu.php` hiện vẫn là trang quản trị dữ liệu nền phục vụ demo, không phải giao diện nghiệp vụ chuẩn của từng vai trò.
+Chuyển thư mục dự án vào:
+
+```text
+C:\xampp\htdocs\TS10_PHP_NhomMotNha
+```
+
+### Bước 2: Khởi động XAMPP
+
+Mở XAMPP Control Panel và khởi động:
+
+- Apache
+- MySQL
+
+### Bước 3: Khởi tạo cơ sở dữ liệu
+
+Truy cập:
+
+```text
+http://localhost/phpmyadmin
+```
+
+Tạo cơ sở dữ liệu có tên:
+
+```sql
+CREATE DATABASE IF NOT EXISTS tuyensinh10
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+```
+
+Sau đó chọn database `tuyensinh10` và import file `sql/database.sql`.
+
+### Bước 4: Cấu hình kết nối
+
+Sao chép file:
+
+```text
+config.example.php
+```
+
+thành:
+
+```text
+config.php
+```
+
+Cập nhật thông tin kết nối MySQL phù hợp với môi trường máy tính.
+
+### Bước 5: Tạo tài khoản quản trị ban đầu
+
+Mở CMD và chạy:
+
+```cmd
+C:\xampp\php\php.exe C:\xampp\htdocs\TS10_PHP_NhomMotNha\tools\create_user.php so_admin "Admin@123456" "Cán bộ Sở" SO
+```
+
+Tài khoản trên chỉ dùng để khởi tạo và kiểm thử trong môi trường phát triển; cần thay mật khẩu khi sử dụng thực tế.
+
+### Bước 6: Truy cập hệ thống
+
+Mở trình duyệt và truy cập:
+
+```text
+http://localhost/TS10_PHP_NhomMotNha/login.php
+```
+
+Đăng nhập bằng tài khoản đã tạo để sử dụng các chức năng được phân quyền.
+
+## 8. Quy trình làm việc nhóm trên GitHub
+
+Dự án sử dụng Git và GitHub để quản lý mã nguồn, theo dõi thay đổi và tích hợp chức năng giữa các thành viên.
+
+Các nhánh phát triển:
+
+| Nhánh | Thành viên phụ trách |
+|---|---|
+| `main` | Mã nguồn tích hợp chung |
+| `feature/thai` | Đoàn Quốc Thái |
+| `feature/tan` | Nguyễn Minh Tân |
+| `feature/nghia` | Nguyễn Minh Nghĩa |
+| `feature/loc` | Ngô Hữu Lộc |
+| `feature/nhat` | Trần Huỳnh Minh Nhật |
+
+Quy trình làm việc:
+
+1. Cập nhật mã nguồn mới nhất từ nhánh `main`.
+2. Phát triển chức năng trên nhánh cá nhân.
+3. Kiểm tra và commit các thay đổi.
+4. Push mã nguồn lên GitHub.
+5. Tạo Pull Request để nhóm kiểm tra.
+6. Tích hợp chức năng vào nhánh `main` sau khi được thống nhất.
+
+## 9. Trạng thái phát triển
+
+Dự án đang trong giai đoạn phát triển và tích hợp chức năng.
+
+Phiên bản hiện tại tập trung vào giao diện web, xác thực người dùng, kết nối cơ sở dữ liệu và năm nghiệp vụ được phân công. Các chức năng chuyên sâu như chấm thi độc lập, ghép phách, phúc khảo và xét tuyển tự động đầy đủ sẽ tiếp tục được hoàn thiện theo tài liệu đặc tả.
+
+## 10. Nhóm phát triển
+
+**NHÓM MỘT NHÀ**
+
+- Đoàn Quốc Thái
+- Nguyễn Minh Tân
+- Nguyễn Minh Nghĩa
+- Ngô Hữu Lộc
+- Trần Huỳnh Minh Nhật
+
+**Dự án học tập – Hệ thống quản lý tuyển sinh lớp 10 THPT tại TP. Hồ Chí Minh.**
