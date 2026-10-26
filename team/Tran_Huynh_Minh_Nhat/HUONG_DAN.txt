@@ -1,0 +1,4 @@
+Mã riêng: nhat.php
+Lấy file nhat.php ở thư mục gốc, cùng dùng phần chung includes/, assets/, sql/.
+Khi nộp, chỉ merge file nhat.php từ thành viên này vào source chung.
+Không chạy riêng file PHP nếu chưa có CSDL và thư mục dùng chung.
