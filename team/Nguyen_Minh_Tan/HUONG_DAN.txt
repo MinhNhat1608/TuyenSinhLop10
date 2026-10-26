@@ -1,4 +1,0 @@
-Mã riêng: tan.php
-Lấy file tan.php ở thư mục gốc, cùng dùng phần chung includes/, assets/, sql/.
-Khi nộp, chỉ merge file tan.php từ thành viên này vào source chung.
-Không chạy riêng file PHP nếu chưa có CSDL và thư mục dùng chung.
