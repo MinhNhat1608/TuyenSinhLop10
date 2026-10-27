@@ -1,0 +1,40 @@
+﻿Ma diem thi,Ten diem thi,Ma mon,Mon thi,Ma ky thi,Ma tui,Ma bi,So bai,So bai du dieu kien,Duong dan CSV,Ghi chu
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,TOAN,Toán,KY25,T2501T,BI2501T,24,12,csv_demo/THPT_Nguyen_Thuong_Hien/Toan/T2501T/T2501T_diem_moi.csv,CO_THE_CAP_NHAT_MOT_PHAN
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,TOAN,Toán,KY26,T2601T,BI2601T,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Toan/T2601T/T2601T_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,TOAN,Toán,KY26,T2605T,BI2605T,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Toan/T2605T/T2605T_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,TOAN,Toán,KY26,T2609T,BI2609T,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Toan/T2609T/T2609T_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,VAN,Ngữ văn,KY25,T2501V,BI2501V,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Ngu_Van/T2501V/T2501V_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,VAN,Ngữ văn,KY26,T2601V,BI2601V,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Ngu_Van/T2601V/T2601V_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,VAN,Ngữ văn,KY26,T2605V,BI2605V,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Ngu_Van/T2605V/T2605V_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,VAN,Ngữ văn,KY26,T2609V,BI2609V,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Ngu_Van/T2609V/T2609V_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,ANH,Tiếng Anh,KY25,T2501A,BI2501A,0,0,csv_demo/THPT_Nguyen_Thuong_Hien/Tieng_Anh/T2501A/T2501A_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,ANH,Tiếng Anh,KY26,T2601A,BI2601A,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Tieng_Anh/T2601A/T2601A_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,ANH,Tiếng Anh,KY26,T2605A,BI2605A,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Tieng_Anh/T2605A/T2605A_diem_moi.csv,XEM_TRUOC
+DD01,Điểm thi THPT Nguyễn Thượng Hiền,ANH,Tiếng Anh,KY26,T2609A,BI2609A,24,0,csv_demo/THPT_Nguyen_Thuong_Hien/Tieng_Anh/T2609A/T2609A_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,TOAN,Toán,KY25,T2502T,BI2502T,16,0,csv_demo/THPT_Gia_Dinh/Toan/T2502T/T2502T_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,TOAN,Toán,KY26,T2602T,BI2602T,24,0,csv_demo/THPT_Gia_Dinh/Toan/T2602T/T2602T_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,TOAN,Toán,KY26,T2606T,BI2606T,24,0,csv_demo/THPT_Gia_Dinh/Toan/T2606T/T2606T_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,TOAN,Toán,KY26,T2610T,BI2610T,24,0,csv_demo/THPT_Gia_Dinh/Toan/T2610T/T2610T_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,VAN,Ngữ văn,KY25,T2502V,BI2502V,16,0,csv_demo/THPT_Gia_Dinh/Ngu_Van/T2502V/T2502V_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,VAN,Ngữ văn,KY26,T2602V,BI2602V,24,0,csv_demo/THPT_Gia_Dinh/Ngu_Van/T2602V/T2602V_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,VAN,Ngữ văn,KY26,T2606V,BI2606V,24,0,csv_demo/THPT_Gia_Dinh/Ngu_Van/T2606V/T2606V_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,VAN,Ngữ văn,KY26,T2610V,BI2610V,24,0,csv_demo/THPT_Gia_Dinh/Ngu_Van/T2610V/T2610V_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,ANH,Tiếng Anh,KY25,T2502A,BI2502A,0,0,csv_demo/THPT_Gia_Dinh/Tieng_Anh/T2502A/T2502A_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,ANH,Tiếng Anh,KY26,T2602A,BI2602A,24,0,csv_demo/THPT_Gia_Dinh/Tieng_Anh/T2602A/T2602A_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,ANH,Tiếng Anh,KY26,T2606A,BI2606A,24,0,csv_demo/THPT_Gia_Dinh/Tieng_Anh/T2606A/T2606A_diem_moi.csv,XEM_TRUOC
+DD02,Điểm thi THPT Gia Định,ANH,Tiếng Anh,KY26,T2610A,BI2610A,24,0,csv_demo/THPT_Gia_Dinh/Tieng_Anh/T2610A/T2610A_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,TOAN,Toán,KY25,T2503T,BI2503T,0,0,csv_demo/THPT_Phu_Nhuan/Toan/T2503T/T2503T_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,TOAN,Toán,KY26,T2603T,BI2603T,24,0,csv_demo/THPT_Phu_Nhuan/Toan/T2603T/T2603T_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,TOAN,Toán,KY26,T2607T,BI2607T,24,0,csv_demo/THPT_Phu_Nhuan/Toan/T2607T/T2607T_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,VAN,Ngữ văn,KY25,T2503V,BI2503V,0,0,csv_demo/THPT_Phu_Nhuan/Ngu_Van/T2503V/T2503V_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,VAN,Ngữ văn,KY26,T2603V,BI2603V,24,0,csv_demo/THPT_Phu_Nhuan/Ngu_Van/T2603V/T2603V_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,VAN,Ngữ văn,KY26,T2607V,BI2607V,24,0,csv_demo/THPT_Phu_Nhuan/Ngu_Van/T2607V/T2607V_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,ANH,Tiếng Anh,KY25,T2503A,BI2503A,0,0,csv_demo/THPT_Phu_Nhuan/Tieng_Anh/T2503A/T2503A_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,ANH,Tiếng Anh,KY26,T2603A,BI2603A,24,0,csv_demo/THPT_Phu_Nhuan/Tieng_Anh/T2603A/T2603A_diem_moi.csv,XEM_TRUOC
+DD03,Điểm thi THPT Phú Nhuận,ANH,Tiếng Anh,KY26,T2607A,BI2607A,24,0,csv_demo/THPT_Phu_Nhuan/Tieng_Anh/T2607A/T2607A_diem_moi.csv,XEM_TRUOC
+DD04,Điểm thi THPT Thủ Đức,TOAN,Toán,KY26,T2604T,BI2604T,24,0,csv_demo/THPT_Thu_Duc/Toan/T2604T/T2604T_diem_moi.csv,XEM_TRUOC
+DD04,Điểm thi THPT Thủ Đức,TOAN,Toán,KY26,T2608T,BI2608T,24,0,csv_demo/THPT_Thu_Duc/Toan/T2608T/T2608T_diem_moi.csv,XEM_TRUOC
+DD04,Điểm thi THPT Thủ Đức,VAN,Ngữ văn,KY26,T2604V,BI2604V,24,0,csv_demo/THPT_Thu_Duc/Ngu_Van/T2604V/T2604V_diem_moi.csv,XEM_TRUOC
+DD04,Điểm thi THPT Thủ Đức,VAN,Ngữ văn,KY26,T2608V,BI2608V,24,0,csv_demo/THPT_Thu_Duc/Ngu_Van/T2608V/T2608V_diem_moi.csv,XEM_TRUOC
+DD04,Điểm thi THPT Thủ Đức,ANH,Tiếng Anh,KY26,T2604A,BI2604A,24,0,csv_demo/THPT_Thu_Duc/Tieng_Anh/T2604A/T2604A_diem_moi.csv,XEM_TRUOC
+DD04,Điểm thi THPT Thủ Đức,ANH,Tiếng Anh,KY26,T2608A,BI2608A,24,0,csv_demo/THPT_Thu_Duc/Tieng_Anh/T2608A/T2608A_diem_moi.csv,XEM_TRUOC
