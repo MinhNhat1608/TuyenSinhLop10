@@ -1,0 +1,30 @@
+BO CSV 4 DIEM THI - 3 MON - 39 TUI - DUNG CHO GITHUB
+Nguon: TS10_FULL_DEMO_TRUONG_THAT_312_THI_SINH.sql
+
+CAU TRUC:
+  csv_demo/<Diem_thi>/<Mon_thi>/<Ma_tui>/<Ma_tui>_diem_moi.csv
+
+4 DIEM THI:
+  DD01 - THPT Nguyen Thuong Hien: 264 bai
+  DD02 - THPT Gia Dinh: 248 bai
+  DD03 - THPT Phu Nhuan: 144 bai
+  DD04 - THPT Thu Duc: 144 bai
+
+TONG: 39 tui, 800 bai, 34 tui co bai, 5 tui rong.
+Moi file CSV co 2 cot theo mau cu: ma_phach,diem.
+Cac diem trong CSV la DIEM DEMO de xem truoc va kiem thu, khong phai diem chinh thuc trong SQL.
+Du lieu 39 tui bao gom ca nam 2025 va 2026; phai chon dung DIEM THI, MON THI va MA TUI tren loc.php.
+
+CANH BAO QUAN TRONG:
+- Nhung diem da DA_CHOT KHONG DUOC CAP NHAT.
+- Nhung bai chua co da_thong_nhat_diem=1 KHONG DUOC NHAP.
+- Nhung tui 0 bai chi co dong tieu de, khong upload duoc.
+- 39 file duoc tao de DEMO va doi chieu; khong dam bao ca 39 tui deu co the xac nhan.
+- Khi them vao GitHub, chi copy thu muc csv_demo vao project. Giu loc.php ban dang chay; khong ghi de code bang file ZIP nay.
+
+DAY LEN GITHUB (Git Bash trong thu muc project):
+  git status
+  git add loc.php csv_demo/
+  git diff --cached --stat
+  git commit -m "Update score import and CSV data for 4 exam sites"
+  git push -u origin HEAD
