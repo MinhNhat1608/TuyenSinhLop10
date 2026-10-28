@@ -154,9 +154,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmtInsert = $dbConn->prepare('INSERT INTO phan_cong_cham_thi(ma_tui, ma_cbct1, ma_cbct2, trang_thai) VALUES(?, ?, ?, ?)');
             
-            // Bước 8: Lưu bản ghi phân công & tự động cập nhật trạng thái
+            // Bước 8: Lưu bản ghi phân công & truyền trạng thái chuẩn ENUM 'DA_PHAN_CONG'
             foreach ($previewPairs as $pair) {
-                $stmtInsert->execute([$pair['ma_tui'], $pair['ma_cbct1'], $pair['ma_cbct2'], 'CHO_CHAM']);
+                $stmtInsert->execute([$pair['ma_tui'], $pair['ma_cbct1'], $pair['ma_cbct2'], 'DA_PHAN_CONG']);
             }
 
             // Ghi audit log
@@ -175,8 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($dbConn->inTransaction()) {
                 $dbConn->rollBack();
             }
-            // Exception flow 8.1: Lỗi giao tác / ngoại lệ CSDL
-            $error = 'Lỗi kết nối cơ sở dữ liệu, thao tác không thành công.';
+            $error = 'Lỗi kết nối cơ sở dữ liệu, thao tác không thành công: ' . $e->getMessage();
         }
     }
 
@@ -226,10 +225,11 @@ page_start('Phân công Hội đồng chấm thi (Tự động theo môn)', 'ngh
         <input type="file" name="file_tui_bai" accept=".csv" required style="padding: 6px;">
         <button type="submit" class="btn-primary" style="background: #f57c00; border: none; padding: 8px 16px; color: white; border-radius: 4px; cursor: pointer;">Tải lên & Nạp túi bài thi</button>
     </form>
-    <small style="color: #666; margin-top: 5px; display: block;">* Định dạng file CSV (5 cột): <code>ma_tui, ma_ky_thi, ma_mon, ma_phong, ma_bi</code></small>
+    <small style="color: #666; margin-top: 5px; display: block;">Định dạng file CSV (5 cột): 
+    <code>ma_tui, ma_ky_thi, ma_mon, ma_phong, ma_bi</code></small>
 </div>
 
-<!-- BƯỚC 1, 2, 3: HIỂN THỊ DANH SÁCH MÔN THI, TÚI BÀI THI, CBKHÂ DỤNG VÀ CHỌN MÔN -->
+<!-- BƯỚC 1, 2, 3: HIỂN THỊ DANH SÁCH MÔN THI, TÚI BÀI THI, CBKHẢ DỤNG VÀ CHỌN MÔN -->
 <?php if (empty($_SESSION['preview_phan_cong'])): ?>
     <div class="panel">
         <h2>Bước 2 & 3: Chọn Môn thi và Tự động phân công</h2>
@@ -310,14 +310,19 @@ page_start('Phân công Hội đồng chấm thi (Tự động theo môn)', 'ngh
 <div class="panel" style="margin-top: 20px;">
     <h2>Danh sách phân công hiện tại trong CSDL</h2>
     <?php 
-    table_rows($dbConn->query('
-        SELECT pc.ma_tui, mon.ten_mon, ns1.ho_ten as cb1, ns2.ho_ten as cb2, pc.trang_thai 
+    table_rows($dbConn->query("
+        SELECT 
+            pc.ma_tui, 
+            mon.ten_mon, 
+            ns1.ho_ten as cb1, 
+            ns2.ho_ten as cb2, 
+            pc.trang_thai 
         FROM phan_cong_cham_thi pc 
         JOIN tui_bai_thi t ON pc.ma_tui=t.ma_tui 
         JOIN mon_thi mon ON t.ma_mon=mon.ma_mon 
         JOIN nhan_su ns1 ON ns1.ma_ns=pc.ma_cbct1 
         JOIN nhan_su ns2 ON ns2.ma_ns=pc.ma_cbct2
-    ')->fetchAll(), ['Túi bài', 'Môn', 'Cán bộ 1', 'Cán bộ 2', 'Trạng thái']);
+    ")->fetchAll(), ['Túi bài', 'Môn', 'Cán bộ 1', 'Cán bộ 2', 'Trạng thái']);
     ?>
 </div>
 
