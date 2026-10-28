@@ -3,12 +3,12 @@
 require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/import_csv.php';
 
-$user = require_role(['SO', 'THU_KY', 'HOI_DONG']);
+$user = require_role(['SO', 'HOI_DONG']);
 $db = db();
 
 $canEdit = in_array(
     $user['vai_tro'],
-    ['THU_KY', 'HOI_DONG'],
+    ['SO', 'HOI_DONG'],
     true
 );
 
@@ -111,7 +111,7 @@ function loc_check_csv(
         return [
             'scores' => [],
             'issues' => [],
-            'errors' => ['File CSV chưa có dữ liệu.']
+            'errors' => ['File điểm chưa có dữ liệu.']
         ];
     }
 
@@ -153,7 +153,7 @@ function loc_check_csv(
             isset($seen[$phach])
         ) {
             $problems[] =
-                'Mã phách bị trùng trong CSV';
+                'Mã phách bị trùng trong file điểm';
         }
 
         if ($phach !== '') {
@@ -180,7 +180,7 @@ function loc_check_csv(
                     'Túi bài chưa được phân công chấm thi';
             }
 
-            // Hai cán bộ phải thống nhất điểm.
+            // Kiểm tra điểm đã được hội đồng thống nhất trước khi cập nhật.
             if (
                 (int)$paper['da_thong_nhat_diem'] !== 1
             ) {
@@ -213,6 +213,14 @@ function loc_check_csv(
                     ? $issues[$phach] . '; ' . $description
                     : $description;
             }
+        }
+    }
+
+    // Kiểm tra tính đầy đủ: mỗi bài thi trong túi phải có đúng một mã phách trong file.
+    foreach ($byPhach as $phach => $paper) {
+        if (!isset($seen[$phach])) {
+            $errors[] = 'Thiếu mã phách ' . $phach . ' trong file điểm.';
+            $issues[$phach] = 'Thiếu điểm trong file';
         }
     }
 
@@ -318,7 +326,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 )
             ) {
                 throw new RuntimeException(
-                    'Dữ liệu xác nhận không hợp lệ. Hãy upload lại CSV.'
+                    'Dữ liệu xác nhận không hợp lệ. Hãy tải lại file điểm.'
                 );
             }
 
@@ -622,14 +630,6 @@ if ($error !== '') {
     '</div>';
 }
 
-echo '<div class="note">
-    Chọn Điểm thi → Môn thi → Mã túi bài.
-    Upload CSV gồm hai cột <b>ma_phach,diem</b>.
-    Điểm sẽ hiển thị trong bảng danh sách.
-    Nhấn xác nhận để lưu vào MySQL.
-    Điểm đã chốt không được ghi đè.
-</div>';
-
 /*
  * 1. CHỌN ĐIỂM THI, MÔN THI, TÚI BÀI
  */
@@ -797,26 +797,10 @@ if ($bag !== null) {
         } elseif (
             $paper['trang_thai_diem'] === 'DA_NHAP'
         ) {
-            $status = 'Đã nhập';
+            $status = 'Đã cập nhật điểm';
 
         } else {
             $status = 'Chưa nhập';
-        }
-
-        $checkText = '—';
-
-        if ($showPreview) {
-            if (isset($check['issues'][$phach])) {
-                $checkText = $check['issues'][$phach];
-
-            } elseif (
-                array_key_exists(
-                    $phach,
-                    $check['scores']
-                )
-            ) {
-                $checkText = 'Hợp lệ';
-            }
         }
 
         $table[] = [
@@ -826,11 +810,11 @@ if ($bag !== null) {
             $phach,
             $bag['ma_bi'],
             $score,
-            $status,
-            $checkText
+            $status
         ];
     }
 
+    // Đúng bước 8 của đặc tả: chỉ hiển thị 7 cột phục vụ đối chiếu.
     table_rows(
         $table,
         [
@@ -840,8 +824,7 @@ if ($bag !== null) {
             'Mã phách',
             'Mã bì',
             'Điểm',
-            'Trạng thái',
-            'Kiểm tra CSV'
+            'Trạng thái'
         ]
     );
 
@@ -853,7 +836,7 @@ if ($bag !== null) {
             echo '<div class="note"
                 style="color:#9b1c1c;background:#fff0f0">
                 Có ' . count($check['errors']) . '
-                lỗi trong file CSV.
+                lỗi trong file điểm.
                 Chưa lưu thay đổi vào database.
             </div>';
 
@@ -918,7 +901,7 @@ if ($bag !== null) {
                 <button
                     class="btn"
                     type="submit">
-                    Xác nhận cập nhật và lưu MySQL
+                    Xác nhận cập nhật
                 </button>
             </div>';
 
@@ -971,7 +954,7 @@ if ($bag !== null) {
      * 3. UPLOAD FILE CSV
      */
     echo '<div class="panel">';
-    echo '<h2>3. Upload file điểm CSV</h2>';
+    echo '<h2>3. Upload file điểm</h2>';
 
     if ($canEdit) {
         echo '<p class="hint">
@@ -1028,7 +1011,7 @@ if ($bag !== null) {
             <button
                 class="btn"
                 type="submit">
-                Upload và xem điểm
+                Upload file điểm và xem kết quả
             </button>
         </div>';
 
