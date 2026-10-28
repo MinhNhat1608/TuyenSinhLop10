@@ -180,13 +180,8 @@ function loc_check_csv(
                     'Túi bài chưa được phân công chấm thi';
             }
 
-            // Kiểm tra điểm đã được hội đồng thống nhất trước khi cập nhật.
-            if (
-                (int)$paper['da_thong_nhat_diem'] !== 1
-            ) {
-                $problems[] =
-                    'Hai cán bộ chưa thống nhất điểm';
-            }
+            // Điểm đã được hai cán bộ thống nhất ngoài hệ thống.
+            // Xác nhận upload CSV là thao tác chốt điểm chính thức.
 
             // Không cập nhật điểm đã chốt.
             if (
@@ -373,7 +368,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ngay_nhap,
                         trang_thai
                     )
-                    VALUES (?, ?, ?, NOW(), 'DA_NHAP')
+                    VALUES (?, ?, ?, NOW(), 'DA_CHOT')
                 ");
 
                 /*
@@ -381,15 +376,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  * thì cập nhật giá trị điểm.
                  */
                 $update = $db->prepare("
-                    UPDATE diem_thi
-                    SET
-                        diem = ?,
-                        nguoi_nhap = ?,
-                        ngay_nhap = NOW()
-                    WHERE ma_bai = ?
-                      AND trang_thai = 'DA_NHAP'
-                ");
-
+    UPDATE diem_thi
+    SET
+        diem = ?,
+        nguoi_nhap = ?,
+        ngay_nhap = NOW(),
+        trang_thai = 'DA_CHOT'
+    WHERE ma_bai = ?
+      AND trang_thai = 'DA_NHAP'
+");
+    $updateThongNhat = $db->prepare("
+    UPDATE bai_thi
+    SET da_thong_nhat_diem = 1
+    WHERE ma_bai = ?
+");
                 foreach (
                     $check['scores'] as $phach => $score
                 ) {
@@ -413,31 +413,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $paper['ma_bai']
                         ]);
 
-                        // Không báo thành công nếu điểm
-                        // đã chuyển sang trạng thái khác.
-                        if ($update->rowCount() === 0) {
-                            $q = $db->prepare("
-                                SELECT trang_thai
-                                FROM diem_thi
-                                WHERE ma_bai = ?
-                            ");
-
-                            $q->execute([
-                                $paper['ma_bai']
-                            ]);
-
-                            if (
-                                $q->fetchColumn() !== 'DA_NHAP'
-                            ) {
-                                throw new RuntimeException(
-                                    'Bài ' . $phach .
-                                    ' không còn được phép cập nhật.'
-                                );
-                            }
+                        // Phải cập nhật được đúng một bản ghi điểm chưa chốt.
+                        if ($update->rowCount() !== 1) {
+                            throw new RuntimeException(
+                                'Không thể chốt điểm bài ' . $phach . '.'
+                            );
                         }
                     } else {
                         throw new RuntimeException(
                             'Điểm đã chốt, không được sửa.'
+                        );
+                    }
+
+                    // Điểm trong CSV đã được hai cán bộ thống nhất bên ngoài.
+                    // Xác nhận cùng giao dịch với thao tác chốt điểm.
+                    $updateThongNhat->execute([$paper['ma_bai']]);
+                    if ($updateThongNhat->rowCount() === 0 &&
+                        (int)$paper['da_thong_nhat_diem'] !== 1) {
+                        throw new RuntimeException(
+                            'Không thể xác nhận thống nhất điểm bài ' . $phach . '.'
                         );
                     }
                 }

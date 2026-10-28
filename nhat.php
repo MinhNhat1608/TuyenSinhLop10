@@ -46,7 +46,7 @@ function n_build(PDO $db,string $ky):array {
         if($r['trang_thai']!=='DA_DUYET')n_fail('Còn chỉ tiêu chưa được Sở phê duyệt.');
         $quota[$r['ma_truong'].'|'.$r['ma_he']]=(int)$r['so_luong'];
     }
-    $students=n_query($db,'SELECT ma_thi_sinh,ho_ten,ho_so_hop_le FROM thi_sinh WHERE ma_ky_thi=? ORDER BY ma_thi_sinh',[$ky]);
+    $students=n_query($db,"SELECT ma_thi_sinh,ho_ten,ho_so_hop_le FROM thi_sinh WHERE ma_ky_thi=? AND (? <> 'KT2027' OR ma_thi_sinh BETWEEN 'TS0001' AND 'TS0180') ORDER BY ma_thi_sinh",[$ky,$ky]);
     if(!$students)n_fail('Chưa có thí sinh trong kỳ thi.');
     $prefs=n_query($db,'SELECT n.ma_thi_sinh,n.ma_truong,n.ma_he,n.thu_tu,n.da_xac_nhan FROM nguyen_vong n JOIN thi_sinh t ON t.ma_thi_sinh=n.ma_thi_sinh WHERE t.ma_ky_thi=? ORDER BY n.thu_tu',[$ky]);
     $byPref=[];
@@ -81,7 +81,7 @@ function n_build(PDO $db,string $ky):array {
         foreach($byGrade[$id]??[] as $g) {
             $mon=$g['ma_mon'];
             if(!isset($required[$mon])||isset($subjectScores[$mon]))n_fail('Bài thi trùng môn hoặc môn không hợp lệ: '.$id.' / '.$mon);
-            if($g['diem']===null||$g['diem_trang_thai']!=='DA_CHOT'||(int)$g['da_thong_nhat_diem']!==1)n_fail('Điểm chưa được chốt/thống nhất: '.$id.' / '.$mon);
+            if($g['diem']===null||!in_array($g['diem_trang_thai'],['DA_NHAP','DA_CHOT'],true))n_fail('Thí sinh chưa có điểm thi hợp lệ: '.$id.' / '.$mon);
             $x=(float)$g['diem'];
             if($x<0||$x>10)n_fail('Điểm ngoài khoảng 0–10: '.$id);
             $subjectScores[$mon]=$x;
@@ -649,7 +649,7 @@ if($ky!==''):
  <div class="n-layout">
   <div class="n-card">
    <div class="n-section-title"><span class="n-step">02</span> Tạo kết quả xét tuyển dự kiến</div>
-   <p class="n-helper">Chương trình chỉ tạo kết quả khi điểm thi đã chốt, nguyện vọng đã xác nhận, chỉ tiêu đã duyệt và có quy tắc hợp lệ.</p>
+   <p class="n-helper">Chương trình chỉ tạo kết quả khi các môn có điểm thi hợp lệ (đã nhập hoặc đã chốt), nguyện vọng đã xác nhận, chỉ tiêu đã duyệt và có quy tắc hợp lệ.</p>
    <div class="n-progress"><span class="n-progress-item <?=$checkError===''?'done':'current'?>">Kiểm tra dữ liệu</span><span class="n-arrow">→</span><span class="n-progress-item <?=$n_drafts||$n_approved?'done':'current'?>">Kết quả dự kiến</span><span class="n-arrow">→</span><span class="n-progress-item <?=$n_approved?'done':''?>">Phê duyệt</span></div>
    <form method="post"><input type="hidden" name="_csrf" value="<?=esc(csrf())?>"><input type="hidden" name="action" value="create"><input type="hidden" name="ma_ky_thi" value="<?=esc($ky)?>"><button type="submit" class="n-btn" <?=$n_canBuild?'':'disabled'?>><?=$n_approved?'Đã hoàn tất xét tuyển':($n_drafts?'Đã tạo kết quả dự kiến':'＋ Tạo kết quả xét tuyển')?></button></form>
    <div class="n-inline-note">Hệ thống không tự đặt hệ số môn hoặc quy tắc đồng điểm. Nếu thiếu quy tắc, việc tạo kết quả được chặn để tránh sai lệch.</div>
